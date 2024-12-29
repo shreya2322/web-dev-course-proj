@@ -1,0 +1,25 @@
+body{
+    background-color: black;
+}
+#motiv{
+    height: 200px;
+    width: 100%;
+    border: 10px solid lightgreen;
+
+}
+ .ho{
+    text-align: center;
+    color: gold;
+ }
+ div{
+    width: 50%;
+    margin-left: 25%;
+    margin-top:100px;
+    font-family: "Agu display" ,sans-serif;
+ }
+
+ h1{
+    text-transform: uppercase;
+    font-size: 3rem;
+ }
+
