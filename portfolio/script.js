@@ -1,76 +1,51 @@
-// Mobile menu functionality
+// Mobile Menu Toggle
 const burger = document.querySelector('.burger');
-const nav = document.querySelector('.nav-links');
-const navLinks = document.querySelectorAll('.nav-links li');
+const navLinks = document.querySelector('.nav-links');
+const navLinksItems = document.querySelectorAll('.nav-links li');
 
 burger.addEventListener('click', () => {
-    // Toggle navigation
-    nav.classList.toggle('nav-active');
-
-    // Animate links
-    navLinks.forEach((link, index) => {
-        if (link.style.animation) {
-            link.style.animation = '';
-        } else {
-            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-        }
-    });
-
-    // Burger animation
-    burger.classList.toggle('toggle');
+    navLinks.classList.toggle('active');
+    burger.classList.toggle('active');
 });
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+navLinksItems.forEach(item => {
+    item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        burger.classList.remove('active');
     });
 });
 
-// Form submission handling
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(this);
-        const formObject = {};
-        formData.forEach((value, key) => {
-            formObject[key] = value;
-        });
-
-        // Here you would typically send the form data to a server
-        // For now, we'll just show a success message
-        alert('Thank you for your message! I will get back to you soon.');
-        this.reset();
-    });
-}
-
-// Scroll reveal animation
+// Navbar scroll effect
 window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        
-        if (sectionTop < windowHeight * 0.75) {
-            section.style.opacity = '1';
-            section.style.transform = 'translateY(0)';
-        }
-    });
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
 });
 
-// Initialize sections with opacity 0 and slight offset
-document.querySelectorAll('section').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(20px)';
-    section.style.transition = 'all 0.5s ease-out';
+// Form submission
+const contactForm = document.getElementById('contact-form');
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Thank you for your message! I will get back to you soon.');
+    contactForm.reset();
 });
+
+// Animate elements when scrolling
+const animateOnScroll = () => {
+    const elements = document.querySelectorAll('.project-card, .certification-card, .document-card');
+    
+    elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+        
+        if (elementPosition < screenPosition) {
+            element.style.animation = 'fadeInUp 0.5s ease forwards';
+        }
+    });
+};
+
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('load', animateOnScroll);
